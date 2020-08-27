@@ -5,15 +5,16 @@ import os
 
 
 def convert(input_path, output_path):
-    os.mkdir(output_path)
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
     with open(input_path) as f:
         outfile = None
         for line in f:
-            if line.startswith("```"):
+            if line.strip() == "```":
                 if outfile:
                     outfile.close()
                     outfile = None
-                    continue
+            elif line.startswith("```"):
                 file_name = line.split()[1]
                 file_path = os.path.join(output_path, file_name)
                 outfile = open(file_path, "w")

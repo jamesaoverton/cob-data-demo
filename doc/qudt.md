@@ -1,15 +1,8 @@
-# Proposal 1
+# QUDT
 
-## Classification
-
-- D3 custom datatypes
-- P2 few predicates
-- V2 reification
-
-## Construct
 
 ```sparql construct.rq
-# IMPORT src/prefixes.rq
+# IMPORT patients-prefixes.rq
 
 CONSTRUCT {
   ?patient a ont:human ;
@@ -35,15 +28,13 @@ CONSTRUCT {
     ont:begins-on ?exam_date ;
     ont:ends-on ?exam_date .
 }
-# IMPORT src/where.rq
+# IMPORT patients-where.rq
 ```
 
-Result: [actual.ttl](actual.ttl)
-
-## Select
+Discussion
 
 ```sparql select.rq
-# IMPORT src/prefixes.rq
+# IMPORT patients-prefixes.rq
 
 SELECT DISTINCT ?exam ?exam_date ?patient ?sex ?height ?weight
 WHERE {
@@ -73,5 +64,3 @@ WHERE {
 }
 ORDER BY ?exam
 ```
-
-Result: [patients.html](patients.html)

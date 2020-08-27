@@ -18,8 +18,8 @@ SHELL := bash
 
 ROBOT := java -jar build/robot.jar
 
-DOCS := overview
-PROFILES := proposal-1
+DOCS := overview datatypes predicates provenance wikidata
+PROFILES := sio proposal-1 proposal-2
 PAGES := $(DOCS) $(PROFILES)
 
 .PHONY: all
@@ -56,8 +56,10 @@ build/reveal.js-master: | build
 
 build/index.md: | build
 	echo "# COB Data Demo" > $@
-	echo ""
-	$(foreach p,$(PAGES),echo "- $(p) [slides]($(p)/slides.html) [docs]($(p)/index.html)" >> $@;)
+	echo "" >> $@
+	echo "topic | slides | docs" >> $@
+	echo "---|---|---" >> $@
+	$(foreach p,$(PAGES),echo "$(p) | [slides]($(p)/slides.html) | [docs]($(p)/index.html)" >> $@;)
 
 build/index.html: build/index.md | build
 	grip --export $< $@
