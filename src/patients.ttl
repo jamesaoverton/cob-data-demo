@@ -1,0 +1,30 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.com/example#> .
+@prefix table: <http://example.com/table#> .
+@prefix ont: <http://example.com/ontology#> .
+@prefix units: <http://example.com/units#> .
+
+[ a table:row ;
+  table:exam-id ex:exam-1 ;
+  table:exam-date "2020-04-01"^^xsd:date ;
+  table:patient-id ex:patient-1 ;
+  table:sex ont:female ;
+  table:height 163 ;
+  table:weight 60 ] .
+
+[ a table:row ;
+  table:exam-id ex:exam-2 ;
+  table:exam-date "2020-04-02"^^xsd:date ;
+  table:patient-id ex:patient-2 ;
+  table:sex ont:male ;
+  table:height 180 ;
+  table:weight 81 ] .
+
+[ a table:row ;
+  table:exam-id ex:exam-3 ;
+  table:exam-date "2020-05-01"^^xsd:date ;
+  table:patient-id ex:patient-1 ;
+  table:sex ont:female ;
+  table:height 163 ;
+  table:weight 59 ] .

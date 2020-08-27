@@ -1,0 +1,11 @@
+WHERE {
+  ?row a table:row ;
+    table:exam-id ?exam ;
+    table:exam-date ?exam_date ;
+    table:patient-id ?patient ;
+    table:sex ?sex ;
+    table:height ?height ;
+    table:weight ?weight .
+  BIND(STRDT(STR(?height), units:cm) as ?height_cm)
+  BIND(STRDT(STR(?weight), units:kg) as ?weight_kg)
+}
