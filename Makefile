@@ -19,7 +19,7 @@ SHELL := bash
 ROBOT := java -jar build/robot.jar
 
 DOCS := overview
-PROFILES := prop1
+PROFILES := proposal-1
 PAGES := $(DOCS) $(PROFILES)
 
 .PHONY: all
@@ -30,7 +30,7 @@ all: $(foreach p,$(PAGES),build/$(p)/slides.md)
 all: $(foreach p,$(PAGES),build/$(p)/slides.html)
 
 .PHONY: clean
-clean:
+clean: | build
 	rm -rf build/*.{ttl,tsv,md,html}
 	cd build && rm -rf $(PAGES)
 
@@ -77,7 +77,7 @@ build/patients.rq: src/prefixes.rq src/where.rq
 	cat $(word 2,$^) >> $@
 	echo "ORDER BY ?exam" >> $@
 
-build/patients.tsv: src/patients.ttl build/patients.rq
+build/patients.tsv: src/patients.ttl build/patients.rq | build/robot.jar
 	$(ROBOT) query --input $< --query $(word 2,$^) $@
 
 build/%/construct.rq build/%/expected.ttl build/%/select.rq: doc/%.md
