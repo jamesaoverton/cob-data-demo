@@ -90,6 +90,7 @@ ex:1
 - `ont:has-height-m 1.82`
 
 ### Pros and Cons
+
 - pros
   - reuse XSD datatypes
   - full use of SPARQL numerics
@@ -98,3 +99,16 @@ ex:1
   - harder to query for length in general (without units)
   - (I think this is hideous)
 
+## D6. Instance of Unit
+
+- `[ a ont:centimetre; ont:numeric-value 182 ]`
+- or `[ a units:cm; ont:numeric-value 182 ]`
+
+### Pros and Cons
+
+- pros
+  - reuse XSD datatypes
+  - full use of SPARQL numerics
+- cons
+  - ontologically weird? maybe not
+  - one more blank node

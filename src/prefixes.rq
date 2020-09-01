@@ -4,5 +4,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX ex: <http://example.com/example#>
 PREFIX table: <http://example.com/table#>
+# Generic ontology prefixes
 PREFIX ont: <http://example.com/ontology#>
 PREFIX units: <http://example.com/units#>
+# QUDT prefixes
+PREFIX qudt: <http://qudt.org/2.1/schema/qudt#>
+PREFIX qudt_unit: <http://qudt.org/2.1/vocab/unit#>
+PREFIX qudt_kind: <http://qudt.org/2.1/vocab/quantitykind>
+# OM prefixes
+PREFIX om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>

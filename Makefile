@@ -19,7 +19,7 @@ SHELL := bash
 ROBOT := java -jar build/robot.jar
 
 DOCS := overview datatypes predicates provenance wikidata
-PROFILES := sio proposal-1 proposal-2
+PROFILES := sio qudt om value-specifications proposal-1 proposal-2
 PAGES := $(DOCS) $(PROFILES)
 
 .PHONY: all
@@ -54,7 +54,7 @@ build/reveal.js-master: | build
 	rm $@.zip
 	mv reveal.js-master build
 
-build/index.md: | build
+build/index.md: doc/ | build
 	echo "# COB Data Demo" > $@
 	echo "" >> $@
 	echo "topic | slides | docs" >> $@
