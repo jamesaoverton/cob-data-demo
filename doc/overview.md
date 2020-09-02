@@ -2,18 +2,46 @@
 
 ## Overview
 
+1. problem
+2. existing work
+3. range of options
+4. working proposal
+
+### The Good
+
+- OBO brings together many scientific ontologies
+- good coverage of many domains
+- agreement on many terms and relations
+
+### The Bad
+
+- shared terms are not enough for interoperability
+  - more shared modelling!
+- OBO often ignores or is ignored by the wider web of linked data
+
+### The Ugly
+
+- RDF and OWL are a *blank slate*
+  - too many ways to say the same thing
+- too many standards / too few standards
+- no one good existing standard for quantitative values
+
 ### Problem
 
-- express quantitative values
+Agree on shared modelling for quantitative values
 
-
-These are some notes.
-
-### Use Cases
+### Use Cases 1
 
 - qualitative statements
+  - simple: sex
 - quantitative statements
   - simple: height, weight
+- provenance
+  - simple: source of value, links out
+
+### Use Cases 2
+
+- quantitative statements
   - rates: heart rate
   - calculated: BMI
   - ratios
@@ -27,8 +55,23 @@ These are some notes.
 
 - time, change, temporal problems
 
+### Desiderata
+
+1. follow OBO principles, e.g. Open
+2. as simple as possible, but no simpler
+3. conserve existing OBO resources
+4. try to interoperate with the wider web of linked data
+
 
 ## Existing Approaches
+
+- some general approaches: too general
+- some specific approaches
+  - Wikidata
+  - SIO
+  - QUDT
+  - OM
+  - OBI/IAO value specifications
 
 ### General Approaches
 
@@ -37,38 +80,34 @@ These are some notes.
 
 ### EAV: Entity-Attribute-Value
 
-https://en.wikipedia.org/wiki/Entity–attribute–value_model
+- a [design pattern](https://plato.stanford.edu/entries/determinate-determinables/) (or anti-pattern) from databases
+- obvious similarities to RDF
+- still just a *blank slate*
 
-entity-attribute-value is a pattern (or anti-pattern) from the the database domain.
-It has obvious similarities to RDF.
-The simplicity is the obvious appeal,
-but it doesn't actually make many decisions for us.
+#### EAV 2
 
-In OBO we usually have entities (i.e. named individuals, class intances)
-which have a quality, and we want to quantify that quality with the value.
+In OBO:
 
+- entity is usually a material entity
+- attribute is usually a quality
+- value is usually just "present"/"true"
+  - we're discussing qualitative values here
 
 ### BFO Determinable/Determinate
 
-Philosphers sometimes make this distinction between the
-determinable 'colour of Socrates' skin' (over his whole life)
-and the determinate shade that his skin took at a particular moment.
-
-https://plato.stanford.edu/entries/determinate-determinables/
-
-I saw Barry Smith present a version of this approach in the BFO context about ten years ago.
-Unfortunately I cannot find a reference to it now.
-
-OBO has a long list of determinable qualities,
-but I can't point to a proposal for determinates.
+- [philosophical distinction](https://plato.stanford.edu/entries/determinate-determinables/):
+  - determinable 'colour of Socrates' skin' (over his whole life)
+  - determinate shade that his skin took at a particular moment.
+- Barry has done work on this, but I couldn't find it
+- I can't point to an OBO proposal for determinables
 
 ### Specific Approaches
 
-- SIO: Semanticscience Integrated Ontology
 - Wikidata
-- QUDT
-- OM
-- IAO/OBI value specifications
+- SIO: Semanticscience Integrated Ontology
+- QUDT: Quantity, Unit, Dimension and Type Schema 2.1
+- OM: Ontology of units of Measure 2.0
+- OBI/IAO value specifications
 
 
 ## Pieces of a Solution

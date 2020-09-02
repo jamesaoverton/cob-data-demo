@@ -86,13 +86,13 @@ build/%/construct.rq build/%/expected.ttl build/%/select.rq: doc/%.md
 	src/convert.py $< $(dir $@)
 
 build/%/actual.ttl: src/patients.ttl build/%/construct.rq | build/robot.jar
-	$(ROBOT) query --input $< --query $(word 2,$^) $@
+	$(ROBOT) query --tdb true --input $< --query $(word 2,$^) $@
 
 build/%/actual.ttl.diff: build/%/expected.ttl build/%/actual.ttl | build/robot.jar
 	$(ROBOT) diff --left $< --right $(word 2,$^) --output $@
 
 build/%/patients.tsv: build/%/actual.ttl build/%/select.rq | build/robot.jar
-	$(ROBOT) query --input $< --query $(word 2,$^) $@
+	$(ROBOT) query --tdb true --input $< --query $(word 2,$^) $@
 
 build/%/patients.tsv.diff: build/patients.tsv build/%/patients.tsv
 	-diff $^ > $@

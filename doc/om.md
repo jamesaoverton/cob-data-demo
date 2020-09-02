@@ -1,12 +1,30 @@
-# Proposal 1
+# OM
+
+Ontology of units of Measure
 
 https://github.com/HajoRijgersberg/OM
+
+## About
+
+> The Ontology of units of Measure (OM) 2.0 models concepts and relations important to scientific research. It has a strong focus on units, quantities, measurements, and dimensions.
 
 ## Classification
 
 - D4 multiple triples
 - P2 few predicates
 - V2 reification
+
+## Pros and Cons
+
+- pros
+  - straightforward
+  - public GitHub repo
+- cons
+  - not widely used?
+  - unsure about license
+  - nothing qualitative?
+  - extensive overlap with OBO qualities/characteristics
+  - focused on SI, not sure about other coverage
 
 ## Construct
 

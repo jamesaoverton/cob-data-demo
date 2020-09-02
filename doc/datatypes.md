@@ -1,6 +1,7 @@
 # Datatypes
 
-It would be nice to be able to say `"182"^^:cm`.
+How to say "182 cm"?
+
 
 ## Standards
 
@@ -12,8 +13,10 @@ It would be nice to be able to say `"182"^^:cm`.
 
 ## D1. Just Literals
 
-- literal strings `"182cm"`
-- literal numbers `182`
+```turtle
+"182cm"
+182
+```
 
 ### Pros and Cons
 
@@ -21,17 +24,19 @@ It would be nice to be able to say `"182"^^:cm`.
   - simple
 - cons
   - users must do all the work
-  - no access to SPARQL numeric functions or comparisons
+  - with strings: no access to SPARQL numeric functions or comparisons
+  - with numbers: no explicit units
 
 ## D2. UCUM Strings
 
-`"1 m"^^cdt:ucum`
+```turtle
+"1 m"^^cdt:ucum
+```
 
-UCUM Unified Code of Units of Measures is a standard for expressing values with units as strings.
-This work proposes to adapt that to RDF,
-essentially by providing parsing tools for UCUM strings from RDF literal strings:
-
-https://ci.mines-stetienne.fr/lindt/v3/custom_datatypes#ucum
+- UCUM Unified Code of Units of Measures
+  - standard for expressing values with units as strings.
+- [custom RDF datatypes](https://ci.mines-stetienne.fr/lindt/v3/custom_datatypes#ucum)
+  - extend existing tooling
 
 ### Pros and Cons
 
@@ -45,8 +50,10 @@ https://ci.mines-stetienne.fr/lindt/v3/custom_datatypes#ucum
 
 ## D3. Custom Datatypes
 
-- `"182"^^units:cm`
-- `"1.83"^^units:metre`
+```turtle
+"182"^^units:cm
+"1.82"^^units:metre
+```
 
 ### Pros and Cons
 
@@ -62,13 +69,11 @@ https://ci.mines-stetienne.fr/lindt/v3/custom_datatypes#ucum
 
 ## D4. Multiple Triples
 
-- anonymous `[ ont:has-quantity 182 ; ont:has-unit :cm ]`
-- named:
-
-```
+```turtle
+[ ont:has-quantity 182 ; ont:has-unit units:cm ]
 ex:1
   ont:has-quantity 182 ;
-  ont:has-unit :cm .
+  ont:has-unit units:cm .
 ```
 
 ### Pros and Cons
@@ -86,8 +91,10 @@ ex:1
 
 ## D5. Units in the Predicate
 
-- `ont:has-length-cm 182`
-- `ont:has-height-m 1.82`
+```turtle
+ont:has-length-cm 182 
+ont:has-height-m 1.82
+```
 
 ### Pros and Cons
 
@@ -101,8 +108,10 @@ ex:1
 
 ## D6. Instance of Unit
 
-- `[ a ont:centimetre; ont:numeric-value 182 ]`
-- or `[ a units:cm; ont:numeric-value 182 ]`
+```turtle
+[ a ont:centimetre; ont:numeric-value 182 ]
+[ a units:cm; ont:numeric-value 182 ]
+```
 
 ### Pros and Cons
 

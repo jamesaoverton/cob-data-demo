@@ -1,24 +1,31 @@
 # Predicates
 
+How to link our data?
+
 ## P1. Many Predicates
 
-- `ont:has-height`
-- `ont:has-weight`
-- maybe `ont:has-height-cm`
+```turtle
+ont:has-height
+ont:has-weight
+ont:has-height-cm
+```
 
 ### Pros and Cons
 
 - pros
-  - solve the datatype problem
+  - maybe solves the datatype problem (D5 unit in predicate)
 - cons
-  - OBO has many classes by minimal predicates
+  - OBO has many classes but minimal predicates
   - would require a lot of new predicates
     - one for each quality, or group/branch of qualities
 
 ## P2. Few Predicates
 
-- `ont:has-quantity`
-- or maybe `ont:has-value`
+```turtle
+ont:has-quantity
+ont:has-value
+ont:has-numeric-value
+```
 
 ### Pros and Cons
 
@@ -32,8 +39,10 @@
 
 both a class and a predicate
 
-- `ont:height`
-- `ont:sex`
+```turtle
+ont:height
+ont:sex
+```
 
 ### Pros and Cons
 

@@ -1,6 +1,18 @@
 # QUDT
 
-Big changes recently:
+[Quantity, Unit, Dimension and Type Schema](http://www.qudt.org/pages/HomePage.html)
+
+## About
+
+> QUDT.org is a 501(c)(3) not-for-profit organization founded to provide semantic specifications for units of measure, quantity kind, dimensions and data types.
+
+## History
+
+> Originally, QUDT models were developed for the NASA Exploration Initiatives Ontology Models (NExIOM) project, a Constellation Program initiative at the AMES Research Center (ARC).
+
+Now a member of the World Wide Web Consortium 
+
+## Recent Changes
 
 - version 2.1
 - public GitHub repo
@@ -16,11 +28,13 @@ Big changes recently:
 
 - pros
   - W3C member
-  - good breadth
+  - CC-BY 4 license, public GitHub project
+  - good coverage of units for physical sciences
   - patterns for unit conversion and user-defined units
 - cons
   - nothing qualitative?
-  - seems very different from OBO
+  - extensive overlap with OBO qualities/characteristics
+  - not sure how to connect entities to quantities
 
 ## Construct
 

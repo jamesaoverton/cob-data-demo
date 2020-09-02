@@ -1,8 +1,14 @@
-# SIO: Semanticscience Integrated Ontology
+# SIO
+
+[Semanticscience Integrated Ontology](https://github.com/MaastrichtU-IDS/semanticscience)
+
+## About
+
+> The Semanticscience Integrated Ontology (SIO) provides a simple, integrated ontology of types and relations for rich description of objects, processes and their attributes.
 
 ## Measurements
 
-https://github.com/MaastrichtU-IDS/semanticscience/wiki/DP-Measurements
+[DP-Measurements](https://github.com/MaastrichtU-IDS/semanticscience/wiki/DP-Measurements)
 
 ```
 'measurement of x' 
@@ -21,11 +27,15 @@ I don't understand how a quantity is an attribute of an object, but I guess it's
 
 - D4 multiple triples
 - P2 few predicates
-- V1 cluster of triples
+- V1 cluster of triples ([docs](https://github.com/MaastrichtU-IDS/semanticscience/wiki/DP-Provenance))
 
-## Provenance
+## Pros and Cons
 
-https://github.com/MaastrichtU-IDS/semanticscience/wiki/DP-Provenance
+- pros
+  - simple
+- cons
+  - limited to one project?
+  - not sure about license
 
 ## Construct
 
