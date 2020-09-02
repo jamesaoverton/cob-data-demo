@@ -10,10 +10,11 @@ You can browse the documentation here:
     - [predicates](doc/predicates.md)
     - [provenance](doc/provenance.md)
 - approaches
-    - [sio](doc/sio.md)
     - [wikidata](doc/wikidata.md)
+    - [sio](doc/sio.md)
     - [qudt](doc/qudt.md)
     - [om](doc/om.md)
+    - [value specifications](doc/value-specifications.md)
     - [proposal-1](doc/proposal-1.md)
     - [proposal-2](doc/proposal-2.md)
 
