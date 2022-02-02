@@ -1,0 +1,16 @@
+prefix	base
+BFO	http://purl.obolibrary.org/obo/BFO_
+COB	http://purl.obolibrary.org/obo/COB_
+IAO	http://purl.obolibrary.org/obo/IAO_
+OBI	http://purl.obolibrary.org/obo/OBI_
+PATO	http://purl.obolibrary.org/obo/PATO_
+RO	http://purl.obolibrary.org/obo/RO_
+rdf	http://www.w3.org/1999/02/22-rdf-syntax-ns#
+rdfs	http://www.w3.org/2000/01/rdf-schema#
+owl	http://www.w3.org/2002/07/owl#
+xsd	http://www.w3.org/2001/XMLSchema#
+obo	http://purl.obolibrary.org/obo/
+time	http://www.w3.org/2006/time#
+unit	https://units-of-measurement.org/
+ex	http://example.com/example/
+value	http://example.com/value/

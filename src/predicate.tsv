@@ -1,0 +1,17 @@
+Ontology ID	Label	Type	Parent Property	Inverse	Domain	Range	Property Characteristics	Definition
+ID	LABEL	TYPE	SP %	IP %	DOMAIN	RANGE	CHARACTERISTIC	
+value:hasValue	has value	owl:ObjectProperty		value of		structured value		
+value:valueOf	value of	owl:ObjectProperty		has value	structured value			
+value:hasQuantity	has quantity	owl:DataProperty			structured value		functional	
+value:hasUnit	has unit	owl:ObjectProperty	has scale		structured value		functional	
+value:hasCategory	has category	owl:ObjectProperty			structured value	categorical value system	functional	
+value:hasScale	has scale	owl:ObjectProperty			structured value	structured value system	functional	
+value:holdsAtTime	value holds at time	owl:ObjectProperty			structured value	time:TemporalEntity	functional	
+value:hasNumerator	has numerator	owl:ObjectProperty			structured value	structured value	functional	
+value:hasDenominator	has denominator	owl:ObjectProperty			structured value	structured value	functional	
+value:hasSignificantDigits	has significant digits	owl:DataProperty			structured value	xsd:integer	functional	
+value:hasUpperBound	has upper bound	owl:DataProperty			structured value		functional	
+value:hasLowerBound	has lower bound	owl:DataProperty			structured value		functional	
+value:hasUncertainty	has uncertainty	owl:ObjectProperty			structured value	structured value	functional	
+value:inValueSystem	in value system	owl:ObjectProperty			categorical label	structured value system	functional	
+value:hasRankInCollection	has rank in collection	owl:ObjectProperty			rank value		functional	

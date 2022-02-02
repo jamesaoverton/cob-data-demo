@@ -1,0 +1,6 @@
+SELECT *
+WHERE {
+  ?value
+    rdf:type / rdfs:subClassOf* 'structured value' ;
+    ?predicate ?object .
+}

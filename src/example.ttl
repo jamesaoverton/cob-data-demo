@@ -1,0 +1,243 @@
+@prefix BFO: <http://purl.obolibrary.org/obo/BFO_> .
+@prefix COB: <http://purl.obolibrary.org/obo/COB_> .
+@prefix IAO: <http://purl.obolibrary.org/obo/IAO_> .
+@prefix OBI: <http://purl.obolibrary.org/obo/OBI_> .
+@prefix PATO: <http://purl.obolibrary.org/obo/PATO_> .
+@prefix RO: <http://purl.obolibrary.org/obo/RO_> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix unit: <https://units-of-measurement.org/> .
+@prefix ex: <http://example.com/example/> .
+@prefix value: <http://example.com/value/> .
+
+<http://example.com/example.ttl>
+  a owl:Ontology ;
+  owl:imports <http://example.com/demo.owl> .
+
+### scalar
+
+# We can make quantitative statements about characteristics.
+# The important part is the structure of the value:
+# 'scalar value' means that it has quantity and has unit.
+
+ex:James RO:0000053 [
+  a PATO:0000119 ;
+  value:hasValue [
+    a value:scalarValue ;
+    value:hasQuantity "182"^^xsd:float ;
+    value:hasUnit: unit:cm
+  ]
+] .
+
+# These *same* values can also be measurements,
+# carrying additional information about where the value came from,
+# it's precision, etc.
+
+ex:James RO:0000053 [
+  a PATO:0000119 ;
+  value:hasValue [
+    a value:scalarValue, value:measuredValue ;
+    value:hasQuantity "182"^^xsd:float ;
+    value:hasUnit: unit:cm ;
+    value:hasLowerBound "181.5"^^xsd:float ;
+    value:hasUpperBound "182.25"^^xsd:float ;
+    OBI:0000312 ex:height-assay-2022-01-01
+  ]
+] .
+
+### classification
+
+# We can make direct assertions
+# that subjects belong to classes
+# or have characteristics that belong to classes.
+
+ex:James
+  a obo:NCBITaxon_9606 ;
+  RO:0000053 [ a PATO:0020001 ] ;
+  RO:0000053 [ a value:example-right-handed ] .
+
+# We can also pull these apart:
+# e.g. if James has reported his sex as "male",
+# and we want to record that data without asserting that it's true.
+# (So we deliberately break symmetry.)
+
+ex:James
+  RO:0000053 [
+    a PATO:0020000 ;
+    value:hasValue [
+      a value:categoricalValue, value:measuredValue ;
+      value:hasCategory ex:male ; # category within a specific system of categories
+      OBI:0000312 ex:reporting-process-2022-01-01
+    ]
+  ] .
+
+# We can describe category systems.
+# (Often we *need* to describe the details of the category system,
+# which can change over time.)
+# The categories are *not* the same as ontological classes,
+# but we can make a clear link from category to class.
+# Here the link is made with the (weak) 'is about' relation.
+
+ex:foo-biological-sex-categories
+  a value:categoricalValueSystem .
+
+ex:female
+  a value:categoricalLabel ;
+  IAO:0000136 PATO:0020002 ;
+  value:inValueSystem ex:foo-biological-sex-categories .
+
+ex:male
+  a value:categoricalLabel ; # TODO: Is this right?
+  rdfs:label "M" ;
+  IAO:0000136 PATO:0020001 ; # NOTE punning a class
+  value:inValueSystem ex:foo-biological-sex-categories .
+
+ex:unspecified
+  a value:categoricalLabel ;
+  IAO:0000136 PATO:0020000 ;
+  value:inValueSystem ex:foo-biological-sex-categories .
+
+### ordinal
+
+# Sometime categories have an ordered structure.
+
+ex:James RO:0000053 [
+  a value:example-grumpiness ;
+  value:hasValue [
+    a value:ordinalValue ;
+    value:hasCategory ex:medium-grumpiness
+  ]
+] .
+
+ex:medium-grumpiness
+  a value:ordinalValue ;
+  value:inValueSystem ex:grumpiness-scale .
+
+ex:grumpiness-scale a value:ordinalValueSystem .
+
+### ranking
+
+ex:James RO:0000053 [
+  a value:example-sibling-order ;
+  value:hasValue [
+    a value:rankValue ;
+    value:hasQuantity "1" ;
+    value:hasRankInCollection ex:children-of-James-parents
+  ]
+] .
+
+### count
+
+ex:James RO:0000053 [
+  a value:example-sibling-count ;
+  value:hasValue [
+    a value:countValue ;
+    value:hasQuantity "3"
+  ]
+] .
+
+# If we hate 'sibling count' as a characteristic of James, maybe this is better:
+
+ex:James-siblings a obo:PCO_0000000 ;
+  RO:0000053 [
+    a value:example-collection-size ;
+    value:hasValue [
+      a value:countValue ;
+      value:hasQuantity "3"^^xsd:integer
+    ]
+  ] .
+
+
+### ratio
+
+ex:James-weight a PATO:0000128 ;
+  value:hasValue [
+    value:hasQuantity "75"^^xsd:float ;
+    value:hasUnit unit:kg
+  ] .
+
+ex:James-height a PATO:0000119 ;
+  value:hasValue [
+    value:hasQuantity "1.82"^^xsd:float ;
+    value:hasUnit unit:m
+  ] .
+
+ex:James
+  RO:0000053 ex:James-height, ex:James-weight ;
+  RO:0000053 [
+    a value:example-body-mass-index ;
+    value:hasValue [
+      a value:calculatedValue, value:scalarValue ;
+      value:hasQuantity "22.64"^^xsd:float ;
+      value:hasUnit unit:kg.m2 ;
+      value:hasNumerator ex:James-weight ;
+      value:hasDenominator [
+        a value:calculatedValue, value:scalarValue ;
+        value:hasQuantity "3.3124"^^xsd:float ;
+        value:hasUnit unit:m2
+      ]
+    ]
+  ] .
+
+# Ratios may not have units, but this one does.
+
+### percentage
+
+# Should be similar to ratio.
+
+ex:James
+  RO:0000053 [
+    a PATO:0000119 ;
+    value:hasValue [
+      a value:categoricalValue ;
+      value:hasCategory ex:scale-A-tall
+    ] ;
+    value:hasValue [
+      a value:categoricalValue ;
+      value:hasCategory ex:scale-B-medium-height
+    ] ;
+    value:hasValue [
+      a value:scalarValue ;
+      value:hasQuantity "182"^^xsd:float ;
+      value:hasUnit unit:cm
+    ]
+  ] .
+
+ex:scale-A-tall
+  a value:categoricalValue ;
+  value:inValueSystem ex:height-scale-A .
+
+ex:scale-B-medium-height
+  a value:categoricalValue ;
+  value:inValueSystem ex:height-scale-B .
+
+ex:height-scale-A
+  a value:categoricalValueSystem .
+
+ex:height-scale-B
+  a value:categoricalValueSystem .
+
+
+
+ex:James
+  RO:0000053 [
+    a value:example-sibling-order ;
+    value:hasValue [
+      a value:rankValue ;
+      value:hasQuantity "1"^^xsd:integer ;
+      value:hasRankInCollection ex:James-parents-children
+    ]
+  ] .
+
+#ex:James-parents-children
+#  a 'collection of organisms' ;
+#  'has members' ( ... ) .
+
+
+
+
+# MISSING set()

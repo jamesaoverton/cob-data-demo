@@ -1,0 +1,221 @@
+### scalar
+
+# We can make quantitative statements about characteristics.
+# The important part is the structure of the value:
+# 'scalar value' means that it has quantity and has unit.
+
+ex:James 'has characteristic' [
+  a 'height' ;
+  'has value' [
+    a 'scalar value' ;
+    'has quantity' "182"^^xsd:float ;
+    'has unit': unit:cm
+  ]
+] .
+
+# These *same* values can also be measurements,
+# carrying additional information about where the value came from,
+# it's precision, etc.
+
+ex:James 'has characteristic' [
+  a 'height' ;
+  'has value' [
+    a 'scalar value', 'measured value' ;
+    'has quantity' "182"^^xsd:float ;
+    'has unit': unit:cm ;
+    'has lower bound' "181.5"^^xsd:float ;
+    'has upper bound' "182.25"^^xsd:float ;
+    'is specified output of' ex:height-assay-2022-01-01
+  ]
+] .
+
+### classification
+
+# We can make direct assertions
+# that subjects belong to classes
+# or have characteristics that belong to classes.
+
+ex:James
+  a 'Homo sapiens' ;
+  'has characteristic' [ a 'male genotypic sex' ] ;
+  'has characteristic' [ a 'right handed' ] .
+
+# We can also pull these apart:
+# e.g. if James has reported his sex as "male",
+# and we want to record that data without asserting that it's true.
+# (So we deliberately break symmetry.)
+
+ex:James
+  'has characteristic' [
+    a 'genotypic sex' ;
+    'has value' [
+      a 'categorical value', 'measured value' ;
+      'has category' ex:male ; # category within a specific system of categories
+      'is specified output of' ex:reporting-process-2022-01-01
+    ]
+  ] .
+
+# We can describe category systems.
+# (Often we *need* to describe the details of the category system,
+# which can change over time.)
+# The categories are *not* the same as ontological classes,
+# but we can make a clear link from category to class.
+# Here the link is made with the (weak) 'is about' relation.
+
+ex:foo-biological-sex-categories
+  a 'categorical value system' .
+
+ex:female
+  a 'categorical label' ;
+  'is about' 'female genotypic sex' ;
+  'in value system' ex:foo-biological-sex-categories . 
+
+ex:male
+  a 'categorical label' ; # TODO: Is this right?
+  rdfs:label "M" ;
+  'is about' 'male genotypic sex' ; # NOTE punning a class
+  'in value system' ex:foo-biological-sex-categories . 
+
+ex:unspecified
+  a 'categorical label' ;
+  'is about' 'genotypic sex' ;
+  'in value system' ex:foo-biological-sex-categories .
+
+### ordinal
+
+# Sometime categories have an ordered structure.
+
+ex:James 'has characteristic' [ 
+  a 'grumpiness' ;
+  'has value' [
+    a 'ordinal value' ;
+    'has category' ex:medium-grumpiness
+  ]
+] .
+
+ex:medium-grumpiness
+  a 'ordinal value' ;
+  'in value system' ex:grumpiness-scale .
+
+ex:grumpiness-scale a 'ordinal value system' .
+
+### ranking
+
+ex:James 'has characteristic' [ 
+  a 'sibling order' ;
+  'has value' [
+    a 'rank value' ;
+    'has quantity' "1" ;
+    'has rank in collection' ex:children-of-James-parents
+  ]
+] .
+
+### count
+
+ex:James 'has characteristic' [ 
+  a 'sibling count' ;
+  'has value' [
+    a 'count value' ;
+    'has quantity' "3"
+  ]
+] .
+
+# If we hate 'sibling count' as a characteristic of James, maybe this is better:
+
+ex:James-siblings a 'collection of organisms' ;
+  'has characteristic' [
+    a 'collection size' ;
+    'has value' [
+      a 'count value' ;
+      'has quantity' "3"^^xsd:integer
+    ]
+  ] .
+
+
+### ratio
+
+ex:James-weight a 'weight' ;
+  'has value' [
+    'has quantity' "75"^^xsd:float ;
+    'has unit' unit:kg
+  ] .
+
+ex:James-height a 'height' ;
+  'has value' [
+    'has quantity' "1.82"^^xsd:float ;
+    'has unit' unit:m
+  ] .
+
+ex:James
+  'has characteristic' ex:James-height, ex:James-weight ;
+  'has characteristic' [
+    a 'body mass index' ;
+    'has value' [
+      a 'calculated value', 'scalar value' ;
+      'has quantity' "22.64"^^xsd:float ;
+      'has unit' unit:kg.m2 ;
+      'has numerator' ex:James-weight ;
+      'has denominator' [
+        a 'calculated value', 'scalar value' ;
+        'has quantity' "3.3124"^^xsd:float ;
+        'has unit' unit:m2
+      ]
+    ]
+  ] .
+
+# Ratios may not have units, but this one does.
+
+### percentage
+
+# Should be similar to ratio.
+
+ex:James
+  'has characteristic' [
+    a 'height' ;
+    'has value' [
+      a 'categorical value' ;
+      'has category' ex:scale-A-tall
+    ] ;
+    'has value' [
+      a 'categorical value' ;
+      'has category' ex:scale-B-medium-height
+    ] ;
+    'has value' [
+      a 'scalar value' ;
+      'has quantity' "182"^^xsd:float ;
+      'has unit' unit:cm
+    ]
+  ] .
+
+ex:scale-A-tall
+  a 'categorical value' ;
+  'in value system' ex:height-scale-A .
+
+ex:scale-B-medium-height
+  a 'categorical value' ;
+  'in value system' ex:height-scale-B .
+
+ex:height-scale-A
+  a 'categorical value system' .
+
+ex:height-scale-B
+  a 'categorical value system' .
+
+
+
+ex:James
+  'has characteristic' [
+    a 'sibling order' ;
+    'has value' [
+      a 'rank value' ;
+      'has quantity' "1"^^xsd:integer ;
+      'has rank in collection' ex:James-parents-children
+    ]
+  ] .
+
+#ex:James-parents-children
+#  a 'collection of organisms' ;
+#  'has members' ( ... ) .
+
+
+

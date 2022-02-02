@@ -1,0 +1,16 @@
+Ontology ID	Label	Type	Parent Class
+ID	LABEL	TYPE	C %
+BFO:0000040	material entity	owl:Class	
+obo:NCBITaxon_9606	Homo sapiens	owl:Class	material entity
+obo:PCO_0000000	collection of organisms	owl:Class	material entity
+PATO:0020000	genotypic sex	owl:Class	characteristic
+PATO:0020001	male genotypic sex	owl:Class	genotypic sex
+PATO:0020002	female genotypic sex	owl:Class	genotypic sex
+PATO:0000119	height	owl:Class	characteristic
+PATO:0000128	weight	owl:Class	characteristic
+value:example-right-handed	right handed	owl:Class	characteristic
+value:example-sibling-order	sibling order	owl:Class	characteristic
+value:example-grumpiness	grumpiness	owl:Class	characteristic
+value:example-sibling-count	sibling count	owl:Class	characteristic
+value:example-body-mass-index	body mass index	owl:Class	characteristic
+value:example-collection-size	collection size	owl:Class	characteristic

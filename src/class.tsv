@@ -1,0 +1,30 @@
+Ontology ID	Label	Class Type	COB Parent	BFO Parent (if different from COB parent)	Textual Definition	Example	Equivalent Class	Required Predicates	Optional Predicates	Excluded predicates
+ID	LABEL	CLASS_TYPE	C %							
+value:structuredValue	structured value	subclass		generically dependent continuant						
+value:scalarValue	scalar value	subclass	structured value				'structured value' and ('has quantity' some number) and ('has unit' some 'unit')	has quantity, has unit		has category, has category system
+value:categoricalValue	categorical value	subclass	structured value					has category, has category system		has quantity, has unit
+value:ordinalValue	ordinal value	subclass	categorical value					[has category, has category system]		
+value:rankValue	rank value	subclass	ordinal value					[has category, has category system]		
+value:booleanValue	boolean value	subclass	categorical value					[has category, has category system]		
+value:countValue	count value	subclass	structured value							
+value:ratioValue	ratio value	subclass	structured value					has quantity	has unit, has numerator, has denominator	
+value:percentageValue	percentage value	subclass	ratio value							
+	coordinate value		structured value							
+	time value		coordinate value							
+	compound value		structured value							
+										
+value:structuredValueSystem	structured value system	subclass			A system for determining 					
+value:categoricalValueSystem	categorical value system	subclass	structured value system					has elements (unordered)		
+value:ordinalValueSystem	ordinal value system	subclass	categorical value system					has elements (ordered)		
+	coordinate value system	subclass	structured value system							
+										
+value:measuredValue	measured value	subclass	data item				structured value' and 'specified output of' some 'assay'			
+value:calculatedValue	calculated value	subclass	data item							
+value:predictedValue	predicted value	subclass	data item							
+value:settingValue	setting value	subclass	directive information entity							
+value:simulatedValue	simulated value	subclass	information							
+value:limitOfDetection	limit of detection	subclass	data item							
+value:declaredValue	declared value	subclass	data item		established phy	boiling point of a chemical compound				
+value:parameterValue	parameter value	subclass	information							
+										
+value:categoricalLabel	categorical label	subclass	information							

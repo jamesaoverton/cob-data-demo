@@ -1,0 +1,15 @@
+Ontology ID	Label	Type	Parent Class	Parent Property	Inverse	Domain	Range
+ID	LABEL	TYPE	C %	SP %	IP %	DOMAIN	RANGE
+PATO:0000001	characteristic	owl:Class					
+BFO:0000015	process	owl:Class					
+IAO:0000030	information	owl:Class					
+IAO:0000033	directive information entity	owl:Class	information				
+COB:0000082	planned process	owl:Class	process				
+IAO:0000027	data item	owl:Class	information				
+RO:0000053	has characteristic	owl:ObjectProperty			characteristic of		characteristic
+RO:0000052	characteristic of	owl:ObjectProperty			has characteristic	characteristic	
+RO:0000056	participates in	owl:ObjectProperty					process
+RO:0000057	has participant	owl:ObjectProperty				process	
+OBI:0000312	is specified output of	owl:ObjectProperty		participates in	has specified output		planned process
+OBI:0000299	has specified output	owl:ObjectProperty		has participant	is specified output of	planned process	
+IAO:0000136	is about	owl:ObjectProperty				information	

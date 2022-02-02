@@ -46,7 +46,7 @@ build/%/:
 	mkdir -p $@
 
 build/robot.jar: | build
-	curl -L -o $@ https://build.obolibrary.io/job/ontodev/job/robot/job/error-tables/4/artifact/bin/robot.jar
+	curl -L -o $@ "https://github.com/ontodev/robot/releases/download/v1.8.3/robot.jar"
 
 build/reveal.js-master: | build
 	curl -L -o $@.zip https://github.com/hakimel/reveal.js/archive/master.zip
@@ -82,8 +82,8 @@ build/patients.rq: src/prefixes.rq src/where.rq
 build/patients.tsv: src/patients.ttl build/patients.rq | build/robot.jar
 	$(ROBOT) query --input $< --query $(word 2,$^) $@
 
-build/%/construct.rq build/%/expected.ttl build/%/select.rq: doc/%.md
-	src/convert.py $< $(dir $@)
+build/%/construct.rq build/%/expected.ttl build/%/select.rq: src/convert.py doc/%.md | build/%/
+	$^ $(dir $@)
 
 build/%/actual.ttl: src/patients.ttl build/%/construct.rq | build/robot.jar
 	$(ROBOT) query --tdb true --input $< --query $(word 2,$^) $@
@@ -100,3 +100,61 @@ build/%/patients.tsv.diff: build/patients.tsv build/%/patients.tsv
 build/%/patients.html: build/patients.tsv build/%/patients.tsv
 	daff --all --output $@ $^
 
+
+build/cob-data.docx:
+	curl -L -o $@ "https://docs.google.com/document/d/1Cds-u9icTkS4kN7Mcn8P5D01WgIyMIqFz4YzhCYzg0k/export?format=docx"
+
+build/cob-data.md: build/cob-data.docx
+	pandoc -t commonmark $< | pandoc -f commonmark -t gfm -o $@
+
+
+# New Stuff
+
+TABLES := src/prefix.tsv src/external.tsv src/class.tsv src/predicate.tsv src/example.tsv
+GS := "https://docs.google.com/spreadsheets/d/19aPuYxwN5qbfGkDc1hRGv9iTU0F_Gdo4G43-QJqk7B8"
+
+src/prefix.tsv:
+	curl -L -o $@ "$(GS)/export?format=tsv&gid=2003840789"
+
+src/external.tsv:
+	curl -L -o $@ "$(GS)/export?format=tsv&gid=106460502"
+
+src/class.tsv:
+	curl -L -o $@ "$(GS)/export?format=tsv&gid=0"
+
+src/predicate.tsv:
+	curl -L -o $@ "$(GS)/export?format=tsv&gid=365304799"
+
+src/example.tsv:
+	curl -L -o $@ "$(GS)/export?format=tsv&gid=719163805"
+
+src/demo.owl: $(TABLES) | build/robot.jar
+	$(ROBOT) template \
+	--add-prefix "value: http://example.com/value/" \
+	--add-prefix "time: http://www.w3.org/2006/time#" \
+	--template src/external.tsv \
+	--template src/class.tsv \
+	--template src/predicate.tsv \
+	--template src/example.tsv \
+	annotate \
+	--ontology-iri "http://example.com/demo.owl" \
+	--output $@
+
+src/example.ttl: src/example.py $(TABLES) example.txt src/demo.owl
+	python $< > $@
+
+build/%.rq: test/test.py test/%.rq.txt | build
+	python $^ > $@
+
+build/%.csv: build/%.rq src/example.ttl | build/robot.jar
+	$(ROBOT) query \
+	--use-graphs true \
+	--input src/example.ttl \
+	--query $< $@
+# java -jar build/robot.jar -vvv query --use-graphs true --input src/example.ttl --query build/all-values.rq build/all-values.csv
+
+.PHONY: rebuild
+rebuild:
+	rm -rf $(TABLES) src/demo.owl src/example.ttl
+	make src/example.ttl
+	make build/all-values.rq
