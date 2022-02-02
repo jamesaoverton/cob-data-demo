@@ -1,11 +1,16 @@
-# COB Data Demo
+# COB Quantities
+
+---
+
+James A. Overton
+
+<james@overton.ca>
 
 ## Overview
 
 1. problem
-2. existing work
-3. range of options
-4. working proposal
+2. units of measurement
+3. quantitative values
 
 ### The Good
 
@@ -15,31 +20,35 @@
 
 ### The Bad
 
+- missing some important terms
+  - many units of measurement
 - shared terms are not enough for interoperability
-  - more shared modelling!
-- OBO often ignores or is ignored by the wider web of linked data
+  - more shared modelling
+  - more focus on data, not just terminology
+- OBO often ignores or is ignored by the wider Semantic Web
 
 ### The Ugly
 
 - RDF and OWL are a *blank slate*
   - too many ways to say the same thing
-- too many standards / too few standards
+- too many standards AND too few standards
 - no one good existing standard for quantitative values
 
 ### Problem
 
-Agree on shared modelling for quantitative values
+Agree on shared modelling for quantitative values in OBO
 
-### Use Cases 1
+### Immediate Use Cases
 
 - qualitative statements
   - simple: sex
 - quantitative statements
   - simple: height, weight
+  - units: metric, imperial, biological
 - provenance
-  - simple: source of value, links out
+  - simple: where value came from
 
-### Use Cases 2
+### Advanced Use Cases
 
 - quantitative statements
   - rates: heart rate
@@ -49,7 +58,8 @@ Agree on shared modelling for quantitative values
   - complex: boiling point at specified pressure
   - ranges
   - significant digits
-- information/records about measurements
+  - confidence intervals, uncertainty
+- information/records about measurements, settings, simulations
 
 ### Setting Aside
 
@@ -60,59 +70,224 @@ Agree on shared modelling for quantitative values
 1. follow OBO principles, e.g. Open
 2. as simple as possible, but no simpler
 3. conserve existing OBO resources
-4. try to interoperate with the wider web of linked data
+4. try to interoperate with the wider Semantic Web
+5. forward compatibility if a better standard emerges
+
+### Roadmap
+
+1. units of measurement: metric, non-metric, special
+2. basic predicates: has quantity, has unit
+3. shared modelling and mappings
+4. advanced predicates, step by step
 
 
-## Existing Approaches
+## Units of Measurement Proposal
 
-- some general approaches: too general
-- some specific approaches
-  - Wikidata
-  - SIO
-  - QUDT
-  - OM
-  - OBI/IAO value specifications
+### Background
 
-### General Approaches
+- OBO's Units Ontology (UO)
+  - missing units: ohm, atmosphere, bar
+  - few links to other standards
+  - not widely used outside OBO
+  - little recent development
+- other unit ontologies: QUDT, OM, OBOE
+  - each has strengths and weaknesses
+- need metric, non-metric, special units
 
-- EAV: entity-attribute-value
-- BFO determinable/determinate
+### Unified Code for Units of Measure
 
-### EAV: Entity-Attribute-Value
+[ucum.org](https://ucum.org)
 
-- a [design pattern](https://plato.stanford.edu/entries/determinate-determinables/) (or anti-pattern) from databases
-- obvious similarities to RDF
-- still just a *blank slate*
+- wide coverage, widely used
+- metric, non-metric, and special units
+- grammar for constructing unlimited combinations
+- no IRIs, no pages for specific units
+- but QUDT, OM, etc. include UCUM codes
 
-#### EAV 2
+### URLs for UCUM
 
-In OBO:
+Some of us built <https://w3id.org/uom>
 
-- entity is usually a material entity
-- attribute is usually a quality
-- value is usually just "present"/"true"
-  - we're discussing qualitative values here
+- UCUM as Rosetta Stone
+  - map to/from QUDT, OM, OBOE, UO, more!
+- provide URLs and RDF for every unit
+- provide "canonical" codes (sorted)
+- provide conversion scripts
 
-### BFO Determinable/Determinate
+### Current Mappings
 
-- [philosophical distinction](https://plato.stanford.edu/entries/determinate-determinables/):
-  - determinable 'colour of Socrates' skin' (over his whole life)
-  - determinate shade that his skin took at a particular moment.
-- Barry has done work on this, but I couldn't find it
-- I can't point to an OBO proposal for determinables
+- [NERC_P06: Natural Environment Research Council BODC-approved data storage units](http://vocab.nerc.ac.uk/collection/P06/current/)
+- [OBOE: Extensible Observation Ontology](https://bioportal.bioontology.org/ontologies/OBOE)
+- [OM: Ontology of Units of Measure](http://www.ontology-of-units-of-measure.org/)
+- [QUDT: Quantities, Units, Dimensions and dataTypes](http://qudt.org/)
+- [UO: Units Ontology](http://purl.obolibrary.org/obo/UO_)
 
-### Specific Approaches
+### In Action
 
-- Wikidata
-- SIO: Semanticscience Integrated Ontology
-- QUDT: Quantity, Unit, Dimension and Type Schema 2.1
-- OM: Ontology of units of Measure 2.0
-- OBI/IAO value specifications
+Kai's slides
+
+<https://w3id.org/uom/>
+
+### Principles
+
+- relentlessly simple
+- unlimited number of units, on-the-fly
+- general scope
+  - meant for wider Semantic Web community
+  - minimal ontological commitment
+- coverage
+  - metric units
+  - non-metric units
+  - special units (in progress)
+
+### Special Units
+
+- UCUM "annotations" in `{}` treated as `1`
+- `{RBC}/uL`
+  - RBC = red blood cell
+  - OBO wants a link to Cell Ontology
+- we can bridge with OBO terms through UO
+
+### Future Work
+
+- mappings to more systems
+- use SSSOM
+- bridge with UO
 
 
-## Pieces of a Solution
+## COB Quantities Proposal
 
-- datatypes
-- predicates
+### General Principles
+
+- Across OBO: tight integration
+- Outside OBO: thorough mappings
+
+### A Bit More Specific
+
+- adopt UOM for units <https://w3id.org/uom>
+  - update Units Ontology (UO) to connect
+- define basic predicates in COB
+  - 'has quantity'
+  - 'has unit'
+- map basic predicates to existing systems
+  - QUDT, OM, etc.
+- conversion scripts
+- **documentation!**
+
+### Example Table
+
+patient | sex | height | exam
+---|---|---|---
+James A. Overton | male | 182 | 2021-09-14
+
+### Example RDF with Labels
+
+Statements about James
+
+```ttl
+ex:JamesOverton
+  a 'Homo sapiens' ;
+  'has characteristic' [ a 'male' ] ;
+  'has characteristic' [
+    a 'height' ;
+    'has quantity' "182"^^xsd:float ;
+    'has unit' UOM:cm ;
+    'determined by' [
+      a 'height assay' ;
+      'part of' 'exam 2021-09-14'
+    ] 
+  ] .
+```
+
+### Example RDF with CURIEs
+
+Statements about James
+
+```ttl
+ex:JamesOverton
+  a NCBITaxon:9606 ;
+  COB:0000512 [ a PATO:0000384 ];
+  COB:0000512 [
+    a PATO:0000119 ;
+    COB:XXXXXX "182"^^xsd:float ;
+    COB:XXXXX2 UOM:cm ;
+    COB:XXXXX3 [
+      a OBI:0000070 ;
+      BFO:0000050 ex:exam-2021-09-14
+    ] 
+  ] .
+```
+
+### Example RDF with Labels
+
+Statements about a **measurement** about James should have a similar **shape**
+
+```ttl
+ex:JamesOverton
+  a 'Homo sapiens' ;
+  'has characteristic' [ a 'male' ] .
+[
+  a 'measurement datum' ;
+  'has quantity' "182"^^xsd:float ;
+  'has unit' UOM:cm ;
+  'is about' [
+    a 'height' ;
+    'characteristic of' ex:JamesOverton
+  ] ;
+  'specified output of' [
+    a 'height assay' ;
+    'part of' 'exam 2021-09-14'
+  ]
+] .
+```
+
+### Some Mappings
+
+source | quantity, unit
+---|---
+QUDT | `qudt:value`, `qudt:unit`
+OM | `om:hasNumericValue`, `om:hasUnit`
+OBOE | `oboe:hasValue`, `oboe:hasUnit`
+
+### Some More Mappings
+
+source | quantity, unit
+---|---
+Wikidata | `wb:quantityAmount`, `wb:quantityUnit`
+SIO | `SIO:000300`, `SIO:000221`
+schema.org | `schema:value`, `schema:unitCode`
+
+## Wrapping Up
+
+### Problem
+
+Agree on shared modelling for quantitative values in OBO
+
+### Immediate Use Cases
+
+- qualitative statements
+  - simple: sex
+- quantitative statements
+  - simple: height, weight
+  - units: metric, imperial, biological
 - provenance
+  - simple: where value came from
 
+### Desiderata
+
+1. follow OBO principles, e.g. Open
+2. as simple as possible, but no simpler
+3. conserve existing OBO resources
+4. try to interoperate with the wider Semantic Web
+5. forward compatibility if a better standard emerges
+
+### Roadmap
+
+1. units of measurement: **beta phase**
+2. basic predicates: **design phase**
+3. shared modelling and mappings
+4. advanced predicates, step by step
+
+### Discussion
+
+[OBOFoundry/COB issue #35](https://github.com/OBOFoundry/COB/issues/35)
